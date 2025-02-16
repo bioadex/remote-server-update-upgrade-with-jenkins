@@ -1,0 +1,12 @@
+pipeline {
+    agent any
+    stages {
+        stage('Reboot Remote Server') {
+            steps {
+                sshagent(['remote-ssh-keys']) {
+                    sh 'echo "enter-your-remote-server-password" | ssh -o StrictHostKeyChecking=no -l abbey 192.168.*.* sudo -S reboot'
+                }
+            }
+        }
+    }
+}

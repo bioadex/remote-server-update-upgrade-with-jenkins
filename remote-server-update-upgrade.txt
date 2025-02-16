@@ -1,0 +1,13 @@
+pipeline {
+    agent any
+    stages {
+        stage('Update and Upgrade Server') {
+            steps {
+                sshagent(['remote-ssh-keys']) {
+                        sh 'echo "enter-remote-server-password" | ssh -o StrictHostKeyChecking=no -l abbey 192.168.*.* sudo -S apt update'
+                        sh 'echo "enter-remote-server-password" | ssh -o StrictHostKeyChecking=no -l abbey 192.168.*.* sudo -S apt upgrade -y'
+                }
+            }
+        }
+    }
+}
